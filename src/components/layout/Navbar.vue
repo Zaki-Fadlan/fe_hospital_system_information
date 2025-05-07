@@ -1,0 +1,40 @@
+<template>
+  <nav
+    class="bg-green-500 z-50 w-full flex justify-between p-1.5 px-3 shadow-xl top-0"
+  >
+    <div class="flex gap-4 items-center">
+      <button
+        class="bg-green-500 rounded-2xl w-9 h-9 items-center justify-center flex text-white font-semibold border-white border-1"
+        @click="toggleSidebar"
+      >
+        =
+      </button>
+      <div class="text-white">Logo</div>
+    </div>
+    <div class="flex gap-x-2 items-center">
+      <div
+        class="bg-green-500 rounded-full w-9 h-9 items-center justify-center flex text-white font-semibold border-white border-1"
+      >
+        D/L
+      </div>
+      <div
+        class="bg-green-500 rounded-full w-9 h-9 items-center justify-center flex text-white font-semibold border-white border-1"
+      >
+        N
+      </div>
+      <div
+        class="bg-green-500 rounded-full w-9 h-9 items-center justify-center flex text-white font-semibold border-white border-1"
+      >
+        ZF
+      </div>
+    </div>
+  </nav>
+</template>
+
+<script setup lang="ts">
+const emit = defineEmits(["toggle-sidebar"]);
+
+const toggleSidebar = () => {
+  emit("toggle-sidebar");
+};
+</script>
