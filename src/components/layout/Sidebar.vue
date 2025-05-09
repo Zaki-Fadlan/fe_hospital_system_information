@@ -12,13 +12,29 @@
       class="flex gap-y-4 flex-col text-white font-semibold py-2 transition-opacity duration-300 delay-200 mt-12"
     >
       <ul class="gap-y-2 flex flex-col">
-        <li><router-link to="/">Dashboard</router-link></li>
+        <li>
+          <router-link to="/dashboard" @click="closeSidebar"
+            >Dashboard</router-link
+          >
+        </li>
         <hr />
-        <li><router-link to="/auth/login">Pacient</router-link></li>
+        <li>
+          <router-link to="/auth/login" @click="closeSidebar"
+            >Login</router-link
+          >
+        </li>
         <hr />
-        <li><router-link to="/auth/register">Datamaster</router-link></li>
+        <li>
+          <router-link to="/datamaster" @click="closeSidebar"
+            >Datamaster</router-link
+          >
+        </li>
         <hr />
-        <li><router-link to="/auth/register">Profile</router-link></li>
+        <li>
+          <router-link to="/auth/register" @click="closeSidebar"
+            >Profile</router-link
+          >
+        </li>
         <hr />
       </ul>
     </div>
@@ -32,7 +48,7 @@
           <div
             class="h-8 w-8 bg-white rounded-full items-center justify-center flex"
           >
-            ZF
+            <UserIcon class="h-5 w-5" />
           </div>
           <div class="text-white flex flex-col">
             <span class="text-sm font-semibold">Zaki Fadlan</span>
@@ -49,8 +65,10 @@
     </div>
   </aside>
 </template>
+
 <script setup lang="ts">
-import { defineProps, watch, ref } from "vue";
+import { defineProps, ref, watch, defineEmits } from "vue";
+import { UserIcon } from "@heroicons/vue/16/solid";
 
 const props = defineProps({
   isSidebarOpen: {
@@ -59,8 +77,11 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(); // Emit event
+
 const isVisible = ref(props.isSidebarOpen); // toggle visual state only
 
+// Watch for changes in the prop
 watch(
   () => props.isSidebarOpen,
   (val) => {
@@ -68,4 +89,11 @@ watch(
   },
   { immediate: true }
 );
+
+// Function to close the sidebar
+const closeSidebar = () => {
+  if (props.isSidebarOpen) {
+    emit("update:isSidebarOpen", false); // Emit the event to close the sidebar
+  }
+};
 </script>

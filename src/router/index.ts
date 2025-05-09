@@ -19,15 +19,41 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: false },
   },
   {
-    path: "/dashboard",
-    name: "Dashboard",
-    component: () => import("../views/dashboard/Index.vue"),
-    meta: { requiresAuth: true },
-  },
-  {
     path: "/:pathMatch(.*)*",
     name: "NotFound",
     component: () => import("../views/NotFoundView.vue"),
+  },
+  {
+    path: "/",
+    component: () => import("@/components/layout/MainLayout.vue"), // Layout wrapper
+    meta: { requiresAuth: true }, // protect entire group
+    children: [
+      {
+        path: "dashboard",
+        name: "Dashboard",
+        component: () => import("../views/dashboard/Index.vue"),
+      },
+      {
+        path: "datamaster",
+        name: "Datamaster",
+        component: () => import("../views/datamaster/Index.vue"),
+      },
+      {
+        path: "datamaster/building",
+        name: "Building",
+        component: () => import("../views/datamaster/BuildingView.vue"),
+      },
+      {
+        path: "datamaster/room",
+        name: "Room",
+        component: () => import("../views/datamaster/RoomView.vue"),
+      },
+      {
+        path: "datamaster/bed",
+        name: "Bed",
+        component: () => import("../views/datamaster/BedView.vue"),
+      },
+    ],
   },
 ];
 
@@ -39,15 +65,15 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const isLoggedIn = localStorage.getItem("token") !== null;
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-  if (requiresAuth && !isLoggedIn) {
-    // next("/login");
-    next();
-  } else if (to.path === "/login" && isLoggedIn) {
-    //   next("/dashboard");
-    next();
-  } else {
-    next();
-  }
+
+  // if (requiresAuth && !isLoggedIn) {
+  //   next("/login");
+  // } else if ((to.path === "/login" || to.path === "/register") && isLoggedIn) {
+  //   next("/dashboard");
+  // } else {
+  //   next();
+  // }
+  next();
 });
 
 export default router;

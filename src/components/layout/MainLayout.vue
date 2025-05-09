@@ -1,14 +1,18 @@
 <template>
   <!-- <Header /> -->
-  <div class="flex h-screen">
-    <Sidebar :is-sidebar-open="isSidebarOpen" />
+  <div class="flex overflow-auto h-screen">
+    <Sidebar
+      :is-sidebar-open="isSidebarOpen"
+      @update:isSidebarOpen="toggleSidebar"
+    />
 
     <main class="flex-1 flex flex-col">
       <Navbar @toggle-sidebar="toggleSidebar" />
       <div
-        class="overflow-auto dark:bg-emerald-950 dark:text-white text-slate-700 bg-emerald-200 p-4 h-screen transition-all duration-300 ease-in-out"
+        class="h-screen dark:bg-emerald-950 dark:text-white text-slate-700 bg-emerald-200 p-2 sm:p-4 transition-all duration-300 ease-in-out py-16 sm:py-16"
       >
-        <slot />
+        <!-- <slot /> -->
+        <router-view />
       </div>
       <Footer />
     </main>
